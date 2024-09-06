@@ -6,10 +6,14 @@ import com.example.test1.model.Test;
 
 public interface TestService {
 	
-	Test searchItem(HashMap<String,Object> map);
+	HashMap<String,Object> searchItem(HashMap<String,Object> map);
 	
-	void updatePrice(HashMap<String,Object> map);
+	HashMap<String,Object> updatePrice(HashMap<String,Object> map);
 	
-	void deleteItem(HashMap<String,Object> map);
+	HashMap<String,Object> deleteItem(HashMap<String,Object> map);
+	
+	HashMap<String,Object> insertItem(HashMap<String,Object> map);
+	
+	HashMap<String,Object> duplicate(HashMap<String,Object> map);
 	
 }

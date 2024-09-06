@@ -7,6 +7,10 @@
 		select * from test_product where product_no = #{productNo}
 	</select>
 	
+	<select id="duplicate" parameterType="hashmap" resultType="int">
+		select count(product_name) as cnt from test_product where product_name = #{productName}
+	</select>
+	
 	<update id="updatePrice" parameterType="hashmap">
 		update test_product set product_price = #{productPrice} where product_no = #{productNo}
 	</update>
@@ -15,7 +19,8 @@
 		delete from test_product where product_no = #{productNo}
 	</delete>
 	
-	<insert>
-		insert into test_product	
+	<insert id="insertItem" parameterType="hashmap">
+		insert into test_product (product_no, product_name, product_price) values (product_seq.nextval, #{productName}, #{productPrice})
 	</insert>
+	
 </mapper>

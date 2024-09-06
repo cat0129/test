@@ -11,9 +11,9 @@
 </style>
 <body>
 	<div id="app">
-			<div>제품번호 : <input type="text" placeholder="제품명 입력" v-model="productName"></div>
+			<div>제품이름 : <input type="text" placeholder="제품명 입력" v-model="productName"></div>
 			<div>제품가격 : <input type="text" placeholder="가격입력" v-model="productPrice"></div>
-w			<button @click="fnInsert">저장</button>
+			<button @click="fnCheckDupl">저장</button>
 		</div>
 	</div>
 </body>
@@ -23,24 +23,45 @@ w			<button @click="fnInsert">저장</button>
         data() {
             return {
 				productName : "",
-				productPrice : ""
+				productPrice : "",
+				isDupl : false
             };
         },
         methods: {
-            fnInsert(){
+            
+			fnCheckDupl(){
 				var self = this;
-				var nparmap = {productName:self.productName, productPrice:self.productPrice};
+				var nparmap = {productName:self.productName};
 				$.ajax({
-					url:"insert.dox",
-					dataType:"json",	
-					type : "POST", 
-					data : nparmap,
-					success : function(data) { 
+					url:"duplicate.dox",
+					dataType:"json",
+					type:"POST",
+					data:nparmap,
+					success:function(data){
 						console.log(data);
-						
+						if(data.result=="alreadyExist"){
+							self.isDupl=true;
+							alert("중복");
+						} else{
+							var nparmap = {productName:self.productName, productPrice:self.productPrice};
+							$.ajax({
+								url:"insert.dox",
+								dataType:"json",	
+								type : "POST", 
+								data : nparmap,
+								success : function(data) { 
+									if(data.result=="success"){
+										alert("등록 성공");
+										location.href="test.do"
+									}
+									
+								}
+							});
+						}
 					}
-				});
-            }
+				})
+			}
+		
         },
         mounted() {
 			

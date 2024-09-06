@@ -27,11 +27,17 @@ public class TestController {
         return "/test-list";
     }
 	
+	@RequestMapping("/insert.do") 
+    public String insert(Model model) throws Exception{
+
+        return "/insert";
+    }
+	
 	@RequestMapping(value = "/test.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String searchBbsList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("searchItem", testService.searchItem(map));
+		resultMap = testService.searchItem(map);
 		return new Gson().toJson(resultMap);
 	}
 	
@@ -39,7 +45,7 @@ public class TestController {
 	@ResponseBody
 	public String updatePrice(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		testService.updatePrice(map);
+		resultMap = testService.updatePrice(map);
 		return new Gson().toJson(resultMap);
 	}
 	
@@ -47,10 +53,25 @@ public class TestController {
 	@ResponseBody
 	public String delete(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		testService.deleteItem(map);
+		resultMap = testService.deleteItem(map);
 		return new Gson().toJson(resultMap);
 	}
 	
+	@RequestMapping(value = "/insert.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String insert(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = testService.insertItem(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/duplicate.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String duplicate(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = testService.duplicate(map);
+		return new Gson().toJson(resultMap);
+	}
 }
 
 

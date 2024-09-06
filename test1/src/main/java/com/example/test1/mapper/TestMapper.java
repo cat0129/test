@@ -16,4 +16,8 @@ public interface TestMapper {
 	
 	void deleteItem(HashMap<String,Object> map);
 	
+	void insertItem(HashMap<String,Object> map);
+	
+	int duplicate(HashMap<String,Object> map);
+	
 }
